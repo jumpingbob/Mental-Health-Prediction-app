@@ -1,31 +1,29 @@
-# Streamlitライブラリをインポート
 import streamlit as st
+import sympy as sp
 
-# ページ設定（タブに表示されるタイトル、表示幅）
-st.set_page_config(page_title="タイトル", layout="wide")
+# Streamlitアプリのタイトルを設定
+st.title('漸化式アプリ')
 
-# タイトルを設定
-st.title('Streamlitのサンプルアプリ')
+# ガチャボタンを作成
+if st.button('ガチャを引く'):
+    # ガチャが押されたら漸化式を生成して表示
+    n = sp.symbols('n', integer=True)
+    
+    # フィボナッチ数列の漸化式を定義（a_n = a_{n-1} + a_{n-2}）
+    a_n_minus_1 = sp.Function('a')(n - 1)
+    a_n_minus_2 = sp.Function('a')(n - 2)
+    f_n = a_n_minus_1 + a_n_minus_2
+    
+    # 漸化式を表示
+    st.write(f'生成された漸化式: $a_n = {sp.pretty(f_n)}$')
 
-# テキスト入力ボックスを作成し、ユーザーからの入力を受け取る
-user_input = st.text_input('あなたの名前を入力してください')
+# 解答ボタンを作成
+if st.button('解答を表示'):
+    # 解答が押されたら漸化式の一般項を表示
+    # フィボナッチ数列の一般項は直接計算できる
+    a_n_formula = sp.Eq(sp.Function('a')(n), sp.fibonacci(n))
+    st.write('漸化式の一般項: ', a_n_formula)
 
-# ボタンを作成し、クリックされたらメッセージを表示
-if st.button('挨拶する'):
-    if user_input:  # 名前が入力されているかチェック
-        st.success(f'🌟 こんにちは、{user_input}さん! 🌟')  # メッセージをハイライト
-    else:
-        st.error('名前を入力してください。')  # エラーメッセージを表示
-
-# スライダーを作成し、値を選択
-number = st.slider('好きな数字（10進数）を選んでください', 0, 100)
-
-# 補足メッセージ
-st.caption("十字キー（左右）でも調整できます。")
-
-# 選択した数字を表示
-st.write(f'あなたが選んだ数字は「{number}」です。')
-
-# 選択した数値を2進数に変換
-binary_representation = bin(number)[2:]  # 'bin'関数で2進数に変換し、先頭の'0b'を取り除く
-st.info(f'🔢 10進数の「{number}」を2進数で表現すると「{binary_representation}」になります。 🔢')  # 2進数の表示をハイライト
+# Streamlitアプリを起動
+if __name__ == '__main__':
+    st.sidebar.markdown('作者: Your Name')
