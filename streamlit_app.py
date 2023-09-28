@@ -8,7 +8,7 @@ def load_data():
     df = pd.read_excel("questionnaire.xlsx")  # Excelファイルのパスを指定
     return df
 
-df = load_data()
+load_data()
 
 # 設問を表示
 st.title("ベイマックス")
