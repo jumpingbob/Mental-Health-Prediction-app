@@ -33,10 +33,10 @@ for factor in factors:
         if( ningen_exsists ):
             continue
     if(factor == "心理的余裕"):
-        if( syokuzi_exsists ):
+        if( sinri_exsists ):
             continue
     if(factor == "食事・睡眠"):
-        if( sinri_exsists ):
+        if( syokuzi_exsists ):
             continue
     st.subheader(factor)
 
