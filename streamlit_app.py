@@ -24,16 +24,16 @@ factors
 # ラジオボタンで回答を収集し、因子ごとの平均点を計算
 factor_scores = {}
 for factor in factors:
+    i += 1
     st.subheader(factor)
     factor_data = df[df["因子名"] == factor]
     total_score = 0
     for idx, row in factor_data.iterrows():
         st.write(row["設問名"])
-        for i in range(1, 50):
-            var_name = f"options{i}"
-            var_value = globals()[var_name]
+        var_name = f"options{i}"
+        var_value = globals()[var_name]
             
-            score = st.radio("回答", options1, key=i)
+        score = st.radio("回答", options1, key=i)
         # 反転項目の場合、数値を反転
         if row["反転"]:
             score = 5 - int(score[0])
