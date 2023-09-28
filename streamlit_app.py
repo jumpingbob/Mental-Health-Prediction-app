@@ -1,29 +1,51 @@
 import streamlit as st
-import sympy as sp
+import pandas as pd
+import plotly.express as px
 
-# Streamlitアプリのタイトルを設定
-st.title('漸化式アプリ')
 
-# ガチャボタンを作成
-if st.button('ガチャを引く'):
-    # ガチャが押されたら漸化式を生成して表示
-    n = sp.symbols('n', integer=True)
-    
-    # フィボナッチ数列の漸化式を定義（a_n = a_{n-1} + a_{n-2}）
-    a_n_minus_1 = sp.Function('a')(n - 1)
-    a_n_minus_2 = sp.Function('a')(n - 2)
-    f_n = a_n_minus_1 + a_n_minus_2
-    
-    # 漸化式を表示
-    st.write(f'生成された漸化式: $a_n = {sp.pretty(f_n)}$')
 
-# 解答ボタンを作成
-if st.button('解答を表示'):
-    # 解答が押されたら漸化式の一般項を表示
-    # フィボナッチ数列の一般項は直接計算できる
-    a_n_formula = sp.Eq(sp.Function('a')(n), sp.fibonacci(n))
-    st.write('漸化式の一般項: ', a_n_formula)
+# Excelファイルを読み込む
+@st.cache  # データのキャッシュを有効にして高速化
+def load_data():
+    df = pd.read_excel("questions.xlsx")  # Excelファイルのパスを指定
+    return df
 
-# Streamlitアプリを起動
-if __name__ == '__main__':
-    st.sidebar.markdown('作者: Your Name')
+df = load_data()
+
+# 設問を表示
+st.title("ベイマックス")
+
+# ラジオボタンのデフォルト選択肢
+options = ["4 とてもあてはまる", "3 少しあてはまる", "2 あまりあてはまらない", "1 全くあてはまらない"]
+
+# 因子名の一覧を取得
+factors = df["因子名"].unique()
+
+# ラジオボタンで回答を収集し、因子ごとの平均点を計算
+factor_scores = {}
+for factor in factors:
+    st.subheader(factor)
+    factor_data = df[df["因子名"] == factor]
+    total_score = 0
+    for idx, row in factor_data.iterrows():
+        st.write(row["設問名"])
+        score = st.radio("回答", options)
+        # 反転項目の場合、数値を反転
+        if row["反転項目"]:
+            score = 5 - int(score[0])
+        else:
+            score = int(score[0])
+        total_score += score
+    avg_score = total_score / len(factor_data)
+    factor_scores[factor] = avg_score
+    st.write(f"{factor}の平均点: {avg_score:.2f}")
+
+# レーダーチャートを描画
+if factor_scores:
+    st.subheader("因子ごとの評価")
+    fig = px.line_polar(
+        r=list(factor_scores.values()),
+        theta=list(factor_scores.keys()),
+        line_close=True
+    )
+    st.plotly_chart(fig)
