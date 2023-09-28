@@ -24,7 +24,6 @@ factors
 # ラジオボタンで回答を収集し、因子ごとの平均点を計算
 factor_scores = {}
 for factor in factors:
-    i += 1
     st.subheader(factor)
     factor_data = df[df["因子名"] == factor]
     total_score = 0
