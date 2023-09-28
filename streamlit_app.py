@@ -15,6 +15,7 @@ st.title("ベイマックス")
 
 # ラジオボタンのデフォルト選択肢
 options = ["4 とてもあてはまる", "3 少しあてはまる", "2 あまりあてはまらない", "1 全くあてはまらない"]
+options2 = ["4 とてもあてはまる", "3 少しあてはまる", "2 あまりあてはまらない", "1 全くあてはまらない"]
 
 factors = df["因子名"]
 
@@ -28,7 +29,10 @@ for factor in factors:
     total_score = 0
     for idx, row in factor_data.iterrows():
         st.write(row["設問名"])
-        score = st.radio("回答", options)
+        for i in range(1, 101):
+            var_name = f"options{i}"
+            var_value = globals()[var_name]
+            score = st.radio("回答", f"{var_name}: {var_value}")
         # 反転項目の場合、数値を反転
         if row["反転"]:
             score = 5 - int(score[0])
