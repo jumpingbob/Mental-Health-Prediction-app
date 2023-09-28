@@ -33,7 +33,7 @@ for factor in factors:
             var_name = f"options{i}"
             var_value = globals()[var_name]
             
-            score = st.radio("回答", score, key=i)
+            score = st.radio("回答", options1, key=i)
         # 反転項目の場合、数値を反転
         if row["反転"]:
             score = 5 - int(score[0])
