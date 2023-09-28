@@ -22,6 +22,8 @@ factors = df["因子名"]
 factors
 
 ningen_exsists = False
+sinri_exsists = False
+syokuzi_exsists = False
 
 # ラジオボタンで回答を収集し、因子ごとの平均点を計算
 factor_scores = {}
@@ -30,9 +32,21 @@ for factor in factors:
     if(factor == "人間関係"):
         if( ningen_exsists ):
             continue
+    if(factor == "心理的余裕"):
+        if( syokuzi_exsists ):
+            continue
+    if(factor == "食事・睡眠"):
+        if( sinri_exsists ):
+            continue
     st.subheader(factor)
+
     if(factor == "人間関係"):
         ningen_exsists = True
+    if(factor == "心理的余裕"):
+        sinri_exsists = True
+    if(factor == "食事・睡眠"):
+        syokuzi_exsists = True
+
     factor_data = df[df["因子名"] == factor]
     total_score = 0
     for idx, row in factor_data.iterrows():
