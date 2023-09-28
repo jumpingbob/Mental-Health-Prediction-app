@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-
-
 # Excelファイルを読み込む
 @st.cache  # データのキャッシュを有効にして高速化
 def load_data():
