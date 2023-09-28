@@ -16,8 +16,6 @@ st.title("ベイマックス")
 # ラジオボタンのデフォルト選択肢
 options = ["4 とてもあてはまる", "3 少しあてはまる", "2 あまりあてはまらない", "1 全くあてはまらない"]
 
-df
-
 factors = df["因子名"]
 
 factors
@@ -41,12 +39,3 @@ for factor in factors:
     factor_scores[factor] = avg_score
     st.write(f"{factor}の平均点: {avg_score:.2f}")
 
-# レーダーチャートを描画
-if factor_scores:
-    st.subheader("因子ごとの評価")
-    fig = px.line_polar(
-        r=list(factor_scores.values()),
-        theta=list(factor_scores.keys()),
-        line_close=True
-    )
-    st.plotly_chart(fig)
