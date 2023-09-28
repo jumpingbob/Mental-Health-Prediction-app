@@ -5,8 +5,8 @@ import plotly.express as px
 # Excelファイルを読み込む
 @st.cache  # データのキャッシュを有効にして高速化
 def load_data():
-    temp = pd.read_excel("questionnaire.xlsx")  # Excelファイルのパスを指定
-    return temp
+    df = pd.read_excel("questionnaire.xlsx")  # Excelファイルのパスを指定
+    return df
 
 df = load_data()
 
