@@ -47,7 +47,7 @@ for factor in factors:
     factor_data = df[df["因子名"] == factor]
     total_score = 0
     for idx, row in factor_data.iterrows():
-        st.write(row["設問名"])
+        st.markdown("**" + row["設問名"] + "**")
         score = st.radio("回答", options1, key=row["設問名"])
         # 反転項目の場合、数値を反転
         if str(row["反転"]) != "nan":
