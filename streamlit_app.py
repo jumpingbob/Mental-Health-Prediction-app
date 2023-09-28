@@ -18,8 +18,6 @@ options1 = ["1 全くあてはまらない", "2 あまりあてはまらない",
 
 factors = df["因子名"]
 
-factors
-
 ningen_exsists = False
 sinri_exsists = False
 syokuzi_exsists = False
@@ -52,7 +50,7 @@ for factor in factors:
         st.write(row["設問名"])
         score = st.radio("回答", options1, key=row["設問名"])
         # 反転項目の場合、数値を反転
-        if row["反転"]:
+        if row["反転"] == "True":
             score = 5 - int(score[0])
         else:
             score = int(score[0])
