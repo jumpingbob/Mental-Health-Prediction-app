@@ -17,9 +17,6 @@ st.title("ベイマックス")
 options1 = ["4 とてもあてはまる", "3 少しあてはまる", "2 あまりあてはまらない", "1 全くあてはまらない"]
 options2 = ["4 とてもあてはまる", "3 少しあてはまる", "2 あまりあてはまらない", "1 全くあてはまらない"]
 
-score1 = 0
-score2 = 0
-
 factors = df["因子名"]
 
 factors
@@ -35,8 +32,8 @@ for factor in factors:
         for i in range(1, 3):
             var_name = f"options{i}"
             var_value = globals()[var_name]
-
-            globals()[f"score{i}"] = st.radio("回答", var_value)
+            
+            score = st.radio("回答", var_value)
         # 反転項目の場合、数値を反転
         if row["反転"]:
             score = 5 - int(score[0])
