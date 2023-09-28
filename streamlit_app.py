@@ -29,8 +29,7 @@ for factor in factors:
     total_score = 0
     for idx, row in factor_data.iterrows():
         st.write(row["設問名"])
-        for i in range(1, 50):
-            score = st.radio("回答", options1, key=i)
+        score = st.radio("回答", options1, key=row)
         # 反転項目の場合、数値を反転
         if row["反転"]:
             score = 5 - int(score[0])
