@@ -29,7 +29,7 @@ for factor in factors:
     total_score = 0
     for idx, row in factor_data.iterrows():
         st.write(row["設問名"])
-        for i in range(1, 3):
+        for i in range(1, 50):
             var_name = f"options{i}"
             var_value = globals()[var_name]
             
