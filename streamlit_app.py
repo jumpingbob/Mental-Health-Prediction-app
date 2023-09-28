@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # Excelファイルを読み込む
-@st.cache  # データのキャッシュを有効にして高速化
+#@st.cache  # データのキャッシュを有効にして高速化
 def load_data():
     df = pd.read_excel("questionnaire.xlsx")  # Excelファイルのパスを指定
     return df
@@ -16,6 +16,8 @@ st.title("ベイマックス")
 # ラジオボタンのデフォルト選択肢
 options = ["4 とてもあてはまる", "3 少しあてはまる", "2 あまりあてはまらない", "1 全くあてはまらない"]
 
+df
+
 factors = df["因子名"]
 
-df
+factors
