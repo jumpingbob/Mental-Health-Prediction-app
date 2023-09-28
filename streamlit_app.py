@@ -24,7 +24,7 @@ factors
 factor_scores = {}
 for factor in factors:
     st.subheader(factor)
-    factor_data = df[df["因子名"] == factor]
+    factor_data = df["因子名"]
     total_score = 0
     for idx, row in factor_data.iterrows():
         st.write(row["設問名"])
