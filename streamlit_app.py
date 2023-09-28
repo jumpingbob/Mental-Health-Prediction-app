@@ -50,10 +50,10 @@ for factor in factors:
         st.write(row["設問名"])
         score = st.radio("回答", options1, key=row["設問名"])
         # 反転項目の場合、数値を反転
-        if row["反転"] == "True":
-            score = 5 - int(score)
+        if row["反転"] == "TRUE":
+            score = 5 - int(score[0])
         else:
-            score = int(score)
+            score = int(score[0])
         total_score += score
     avg_score = total_score / len(factor_data)
     factor_scores[factor] = avg_score
