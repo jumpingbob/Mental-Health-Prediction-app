@@ -51,6 +51,7 @@ for factor in factors:
         score = st.radio("回答", options1, key=row["設問名"])
         # 反転項目の場合、数値を反転
         if row["反転"] == "1":
+            st.write("1 detected")
             score = 5 - int(score[0])
         else:
             score = int(score[0])
