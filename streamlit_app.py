@@ -5,10 +5,10 @@ import plotly.express as px
 # Excelファイルを読み込む
 @st.cache  # データのキャッシュを有効にして高速化
 def load_data():
-    df = pd.read_excel("questionnaire.xlsx")  # Excelファイルのパスを指定
-    return df
+    temp = pd.read_excel("questionnaire.xlsx")  # Excelファイルのパスを指定
+    return temp
 
-load_data()
+df = load_data()
 
 # 設問を表示
 st.title("ベイマックス")
