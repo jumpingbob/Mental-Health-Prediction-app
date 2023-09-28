@@ -5,7 +5,7 @@ import plotly.express as px
 # Excelファイルを読み込む
 #@st.cache  # データのキャッシュを有効にして高速化
 def load_data():
-    df = pd.read_excel("questionnaire.xlsx")  # Excelファイルのパスを指定
+    df = pd.read_excel("questionnaire (1).xlsx")  # Excelファイルのパスを指定
     return df
 
 df = load_data()
@@ -21,13 +21,18 @@ factors = df["因子名"]
 
 factors
 
+ningen_exsists = False
+
 # ラジオボタンで回答を収集し、因子ごとの平均点を計算
 factor_scores = {}
 for factor in factors:
 
-    
-
+    if(factor == "人間関係"):
+        if( ningen_exsists ):
+            continue
     st.subheader(factor)
+    if(factor == "人間関係"):
+        ningen_exsists = True
     factor_data = df[df["因子名"] == factor]
     total_score = 0
     for idx, row in factor_data.iterrows():
