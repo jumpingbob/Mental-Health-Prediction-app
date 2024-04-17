@@ -1,24 +1,35 @@
-pip install streamlit
 import streamlit as st
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 
-# 曜日ごとの時間割を定義（例として平日の時間割を作成）
-timetable = {
-    "月曜日": ["数学", "国語", "英語"],
-    "火曜日": ["体育", "理科", "音楽"],
-    "水曜日": ["国語", "社会", "数学"],
-    "木曜日": ["美術", "技術", "保健体育"],
-    "金曜日": ["英語", "数学", "家庭科"]
-}
+# データの読み込み
+data = pd.read_csv("stress_data.csv")
 
-# Streamlitアプリの設定
-st.title("時間割アプリ")
+# 特徴量とターゲットを分割
+X = data.drop(columns=["stress_level"])
+y = data["stress_level"]
 
-# 曜日の選択
-selected_day = st.selectbox("曜日を選択してください", list(timetable.keys()))
+# モデルの作成
+model = RandomForestClassifier()
+model.fit(X, y)
 
-# 選択された曜日の時間割を表示
-st.write(f"【{selected_day}の時間割】")
-for subject in timetable[selected_day]:
-    st.write(f"- {subject}")
+# 特徴量の重要度を取得
+feature_importances = model.feature_importances_
 
-streamlit run timetable_app.py
+# Streamlitアプリケーションの作成
+st.title("Stress Level Predictor")
+
+# 特徴量の重要度を表示
+st.write("Feature Importances:")
+st.bar_chart(feature_importances)
+
+# 特徴量の入力欄を作成
+feature_inputs = {}
+for feature in X.columns:
+    feature_inputs[feature] = st.slider(f"Enter {feature}", min_value=data[feature].min(), max_value=data[feature].max())
+
+# 予測の実行
+prediction = model.predict(pd.DataFrame([feature_inputs]))
+
+# 予測結果の表示
+st.write("Predicted Stress Level:", prediction[0])
