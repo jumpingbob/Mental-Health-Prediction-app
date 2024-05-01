@@ -1,35 +1,29 @@
 import streamlit as st
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
 
-# データの読み込み
-data = pd.read_csv("stress_data.csv")
+def calculate_score(feature_importance, multiplier):
+    # 特徴量の重要度と倍率を乗算してスコアを計算する関数
+    score = sum(feature_importance * multiplier)
+    return score
 
-# 特徴量とターゲットを分割
-X = data.drop(columns=["stress_level"])
-y = data["stress_level"]
+def main():
+    st.title('Feature Importance Score Calculator')
 
-# モデルの作成
-model = RandomForestClassifier()
-model.fit(X, y)
+    st.sidebar.header('Settings')
+    uploaded_file = st.sidebar.file_uploader("Upload Excel file", type=["xls", "xlsx"])
 
-# 特徴量の重要度を取得
-feature_importances = model.feature_importances_
+    if uploaded_file is not None:
+        df = pd.read_excel(uploaded_file)
+        st.write(df)
 
-# Streamlitアプリケーションの作成
-st.title("Stress Level Predictor")
+        # 特徴量の重要度と倍率を取得
+        feature_importance = df.iloc[:, 0].values
+        multiplier = df.iloc[:, 1].values
 
-# 特徴量の重要度を表示
-st.write("Feature Importances:")
-st.bar_chart(feature_importances)
+        if st.sidebar.button('Calculate Score'):
+            # スコアを計算
+            score = calculate_score(feature_importance, multiplier)
+            st.write(f"Calculated Score: {score}")
 
-# 特徴量の入力欄を作成
-feature_inputs = {}
-for feature in X.columns:
-    feature_inputs[feature] = st.slider(f"Enter {feature}", min_value=data[feature].min(), max_value=data[feature].max())
-
-# 予測の実行
-prediction = model.predict(pd.DataFrame([feature_inputs]))
-
-# 予測結果の表示
-st.write("Predicted Stress Level:", prediction[0])
+if __name__ == "__main__":
+    main()
