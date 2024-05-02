@@ -26,16 +26,16 @@ def main():
 
     # データを収集した際の質問項目
     features = [
-        "睡眠時間",
-        "運動量",
-        "食事の質",
-        "仕事の満足度",
-        "人間関係の満足度",
-        "ストレスレベル",
-        "リラックス度",
-        "趣味に費やす時間",
-        "自己成長への取り組み",
-        "ストレス解消法の有効性"
+        "Anxiety level (不安レベル)",
+        "Self-esteem (自尊心)",
+        "Mental health history (精神保健の歴史)",
+        "Depression (うつ病)",
+        "Headache (頭痛)",
+        "Blood pressure (血圧)",
+        "Sleep quality (睡眠の質)",
+        "Breathing problem (呼吸問題)",
+        "Future career concerns (将来のキャリアに関する懸念)",
+        "Stress level (ストレスレベル)"
     ]
 
     # 各質問項目の特徴量重要度
