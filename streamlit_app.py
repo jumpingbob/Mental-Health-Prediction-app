@@ -35,11 +35,10 @@ def main():
         "Sleep quality (睡眠の質)",
         "Breathing problem (呼吸問題)",
         "Future career concerns (将来のキャリアに関する懸念)",
-        "Stress level (ストレスレベル)"
     ]
 
     # 各質問項目の特徴量重要度
-    feature_importances = np.array([0.15, 0.10, 0.12, 0.08, 0.11, 0.20, 0.05, 0.09, 0.07, 0.03])
+    feature_importances = np.array([0.18, 0.16, 0.02, 0.85, 0.19, 0.03, 0.23, 0.03, 0.10])
 
     st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
 
