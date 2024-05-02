@@ -1,11 +1,12 @@
 import streamlit as st
 import numpy as np
+import plotly.express as px
 
 # ユーザーからの入力を受け取り、それぞれの項目の値をリストに格納する
 def get_user_input(features):
     user_input = []
     for feature in features:
-        user_input.append(st.radio(f"{feature}を選択してください", options=[1, 2, 3, 4, 5], index=2))
+        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=2))
     return user_input
 
 # Min-Max正規化
@@ -53,6 +54,15 @@ def main():
     stress_level = calculate_stress_level(scaled_values, feature_importances)
 
     st.write("ストレスレベル:", stress_level)
+
+st.write("以下は、ストレスレベルをレーダーチャートで視覚化したものです。")
+    fig = px.line_polar(
+        r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
+        theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
+        line_close=True,
+        title="ストレスレベル",
+    )
+    st.plotly_chart(fig)
 
 if __name__ == "__main__":
     main()
