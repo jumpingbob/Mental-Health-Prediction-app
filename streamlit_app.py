@@ -55,7 +55,7 @@ def main():
 
     st.write("ストレスレベル:", stress_level)
 
-st.write("以下は、ストレスレベルをレーダーチャートで視覚化したものです。")
+    st.write("以下は、ストレスレベルをレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
         theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
