@@ -6,20 +6,15 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        option_map = { 5, 4, 3, 2, 1}
-        selected_option = st.radio(f"{feature}を選択してください", options=list(option_map.keys()), index=2)
-        user_input.append(option_map[selected_option])
+        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=2))
     return user_input
 
 # Min-Max正規化
 def min_max_scaling(user_input):
-    # データに少量のランダムノイズを加える
-    user_input_with_noise = user_input + np.random.normal(0, 0.01, len(user_input))
-    min_val = np.min(user_input_with_noise)
-    max_val = np.max(user_input_with_noise)
-    scaled_values = [(x - min_val) / (max_val - min_val) for x in user_input_with_noise]
+    min_val = np.min(user_input)
+    max_val = np.max(user_input)
+    scaled_values = [(x - min_val) / (max_val - min_val) for x in user_input]
     return scaled_values
-
 
 # ストレスレベルを計算
 def calculate_stress_level(scaled_values, feature_importances):
@@ -28,7 +23,7 @@ def calculate_stress_level(scaled_values, feature_importances):
 
 # Streamlitアプリの実行
 def main():
-    st.title("メンタルヘルス推定アプリ")
+    st.title("ストレスレベル計測アプリ")
 
     # データを収集した際の質問項目
     features = [
@@ -46,7 +41,7 @@ def main():
     # 各質問項目の特徴量重要度
     feature_importances = np.array([0.18, 0.16, 0.02, 0.85, 0.19, 0.03, 0.23, 0.03, 0.10])
 
-    st.write("以下のラジオボタンで各項目を評価し、メンタルヘルスを計算します。")
+    st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
 
     user_input = get_user_input(features)
 
@@ -65,7 +60,7 @@ def main():
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
         theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
         line_close=True,
-        title="メンタルヘルス",
+        title="ストレスレベル",
     )
     st.plotly_chart(fig)
 
