@@ -13,10 +13,13 @@ def get_user_input(features):
 
 # Min-Max正規化
 def min_max_scaling(user_input):
-    min_val = np.min(user_input)
-    max_val = np.max(user_input)
-    scaled_values = [(x - min_val) / (max_val - min_val) for x in user_input]
-    return scaled_values
+    if np.all(user_input == 3):  # 入力がすべて3の場合
+        return np.zeros(len(user_input))  # すべての値を0として扱う
+    else:
+        min_val = np.min(user_input)
+        max_val = np.max(user_input)
+        scaled_values = [(x - min_val) / (max_val - min_val) for x in user_input]
+        return scaled_values
 
 # ストレスレベルを計算
 def calculate_stress_level(scaled_values, feature_importances):
