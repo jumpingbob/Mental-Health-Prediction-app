@@ -6,7 +6,7 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        option_map = {"5とても高い": 5, "4かなり高い": 4, "3普通": 3, "2かなり低い": 2, "1とても低い": 1}
+        option_map = { 5, 4, 3, 2, 1}
         selected_option = st.radio(f"{feature}を選択してください", options=list(option_map.keys()), index=2)
         user_input.append(option_map[selected_option])
     return user_input
