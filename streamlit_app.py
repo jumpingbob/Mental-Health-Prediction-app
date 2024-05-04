@@ -23,7 +23,7 @@ def calculate_stress_level(scaled_values, feature_importances):
 
 # Streamlitアプリの実行
 def main():
-    st.title("ストレスレベル計測アプリ")
+    st.title("メンタルヘルス推定アプリ")
 
     # データを収集した際の質問項目
     features = [
@@ -41,7 +41,7 @@ def main():
     # 各質問項目の特徴量重要度
     feature_importances = np.array([0.18, 0.16, 0.02, 0.85, 0.19, 0.03, 0.23, 0.03, 0.10])
 
-    st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
+    st.write("以下のラジオボタンで各項目を評価し、メンタルヘルスを計算します。")
 
     user_input = get_user_input(features)
 
@@ -60,7 +60,7 @@ def main():
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
         theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
         line_close=True,
-        title="ストレスレベル",
+        title="メンタルヘルス",
     )
     st.plotly_chart(fig)
 
