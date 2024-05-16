@@ -6,7 +6,7 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=0))
+        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=5))
     return user_input
 
 # Min-Max正規化
