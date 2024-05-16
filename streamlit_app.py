@@ -6,27 +6,27 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=5))
+        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=2))
     return user_input
 
 # Min-Max正規化
 def min_max_scaling(user_input):
     min_val = np.min(user_input)
     max_val = np.max(user_input)
-    st.write(f"min_val: {min_val}, max_val: {max_val}")
+    st.write(f"min_val: {min_val}, max_val: {max_val}")  # デバッグ出力
     if min_val == max_val:
+        # すべての値が同じ場合、すべてのスケーリング値を0.5に設定
         scaled_values = [0.5 for _ in user_input]
     else:
         scaled_values = [(x - min_val) / (max_val - min_val) for x in user_input]
-    st.write(f"scaled_values: {scaled_values}")
+    st.write(f"scaled_values: {scaled_values}")  # デバッグ出力
     return scaled_values
 
 # ストレスレベルを計算
 def calculate_stress_level(scaled_values, feature_importances):
     stress_level = np.dot(scaled_values, feature_importances)
-    st.write(f"stress_level: {stress_level}")
+    st.write(f"stress_level: {stress_level}")  # デバッグ出力
     return stress_level
-
 
 # Streamlitアプリの実行
 def main():
