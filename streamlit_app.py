@@ -13,7 +13,11 @@ def get_user_input(features):
 def min_max_scaling(user_input):
     min_val = np.min(user_input)
     max_val = np.max(user_input)
-    scaled_values = [(x - min_val) / (max_val - min_val) for x in user_input]
+    if min_val == max_val:
+        # すべての値が同じ場合、すべてのスケーリング値を0.5に設定
+        scaled_values = [0.5 for _ in user_input]
+    else:
+        scaled_values = [(x - min_val) / (max_val - min_val) for x in user_input]
     return scaled_values
 
 # ストレスレベルを計算
