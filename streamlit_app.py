@@ -102,6 +102,6 @@ def main():
         title="ストレスレベル",
     )
     st.plotly_chart(fig)
-
+st.write("レーダーチャートのへこんでいる項目がストレスの要因である可能性が考えられます。")
 if __name__ == "__main__":
     main()
