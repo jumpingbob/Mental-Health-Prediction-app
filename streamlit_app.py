@@ -9,6 +9,12 @@ def get_user_input(features):
         user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=2))
     return user_input
 
+# 逆スコアリングを適用する
+def reverse_scoring(user_input, reverse_indices):
+    for i in reverse_indices:
+        user_input[i] = 6 - user_input[i]  # 1から5の範囲なので、6 - current_valueで逆にする
+    return user_input
+
 # Min-Max正規化
 def min_max_scaling(user_input):
     min_val = np.min(user_input)
@@ -53,6 +59,12 @@ def main():
     user_input = get_user_input(features)
 
     st.write("入力された値:", user_input)
+
+    # 逆スコアリングを適用するインデックス
+    reverse_indices = [1, 6]  # 1: Self-esteem, 6: Sleep quality
+    user_input = reverse_scoring(user_input, reverse_indices)
+
+    st.write("逆スコアリング適用後の値:", user_input)
 
     scaled_values = min_max_scaling(user_input)
 
