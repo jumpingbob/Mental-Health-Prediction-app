@@ -28,11 +28,11 @@ def min_max_scaling(user_input):
     st.write(f"scaled_values: {scaled_values}")  # デバッグ出力
     return scaled_values
 
-# 因子スコアを計算
-def calculate_factor_scores(scaled_values, factor_loadings):
-    factor_scores = np.dot(scaled_values, factor_loadings)
-    st.write(f"factor_scores: {factor_scores}")  # デバッグ出力
-    return factor_scores
+# ストレスレベルを計算
+def calculate_stress_level(scaled_values, feature_importances):
+    stress_level = np.dot(scaled_values, feature_importances)
+    st.write(f"stress_level: {stress_level}")  # デバッグ出力
+    return stress_level
 
 # Streamlitアプリの実行
 def main():
@@ -40,44 +40,38 @@ def main():
 
     # データを収集した際の質問項目
     features = [
-        "extracurricular activities (課外活動)",
-        "peer pressure (仲間からのプレッシャー)",
-        "study load (学業負担)",
-        "future career concerns (将来のキャリアに関する懸念)",
+        "anxiety_level (不安レベル)",
+        "self_esteem (自尊心)",
+        "mental_health_history (精神保健の歴史)",
         "depression (うつ病)",
-        "noise level (騒音レベル)",
-        "bullying (いじめ)",
-        "self-esteem (自尊心)",
         "headache (頭痛)",
-        "mental health history (精神保健の歴史)",
-        "breathing problems (呼吸問題)",
-        "teacher-student relationships (教師と学生の関係)",
-        "academic performance (学業成績)",
-        "safety (安全性)",
-        "basic needs (基本的ニーズ)",
-        "sleep quality (睡眠の質)",
-        "living conditions (生活環境)"
+        "blood_pressure (血圧)",
+        "breathing_problem (呼吸問題)",
+        "noise_level (騒音レベル)",
+        "study_load (学業負担)",
+        "future_career_concerns (将来のキャリアに関する懸念)",
+        "social_support (社会的支援)",
+        "peer_pressure (仲間からのプレッシャー)",
+        "extracurricular_activities (課外活動)",
+        "bullying (いじめ)"
     ]
 
-    # 各質問項目の因子負荷量
-    factor_loadings = np.array([
-        [0.760, -0.035],
-        [0.730, -0.071],
-        [0.641, -0.071],
-        [0.571, -0.309],
-        [0.561, -0.298],
-        [0.537, -0.189],
-        [0.493, -0.370],
-        [-0.458, 0.389],
-        [0.427, -0.383],
-        [0.427, -0.347],
-        [0.352, -0.319],
-        [-0.078, 0.760],
-        [-0.092, 0.728],
-        [-0.086, 0.727],
-        [-0.107, 0.696],
-        [-0.377, 0.483],
-        [-0.272, 0.420]
+    # 各質問項目の特徴量重要度
+    feature_importances = np.array([
+        0.050119,  # anxiety_level
+        0.078640,  # self_esteem
+        0.089115,  # mental_health_history
+        0.062141,  # depression
+        0.092308,  # headache
+        0.088636,  # blood_pressure
+        0.023618,  # breathing_problem
+        0.056271,  # noise_level
+        0.050188,  # study_load
+        0.085528,  # future_career_concerns
+        0.102331,  # social_support
+        0.050649,  # peer_pressure
+        0.079034,  # extracurricular_activities
+        0.091422   # bullying
     ])
 
     st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
@@ -87,7 +81,7 @@ def main():
     st.write("入力された値:", user_input)
 
     # 逆スコアリングを適用するインデックス
-    reverse_indices = [7, 15]  # 7: Self-esteem, 15: Sleep quality
+    reverse_indices = [1, 12]  # 1: self_esteem, 12: extracurricular_activities
     user_input = reverse_scoring(user_input, reverse_indices)
 
     st.write("逆スコアリング適用後の値:", user_input)
@@ -96,9 +90,9 @@ def main():
 
     st.write("Min-Max正規化された値:", scaled_values)
 
-    factor_scores = calculate_factor_scores(scaled_values, factor_loadings)
+    stress_level = calculate_stress_level(scaled_values, feature_importances)
 
-    st.write("因子スコア (Factor 1, Factor 2):", factor_scores)
+    st.write("ストレスレベル:", stress_level)
 
     st.write("以下は、ストレスレベルをレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
