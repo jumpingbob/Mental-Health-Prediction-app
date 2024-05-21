@@ -92,17 +92,17 @@ def main():
 
     stress_level = calculate_stress_level(scaled_values, feature_importances)
 
-    st.write("ストレスレベル:", stress_level)
+    st.write("ストレス要素:", stress_level)
 
-    st.write("以下は、ストレスレベルをレーダーチャートで視覚化したものです。")
+    st.write("以下は、ストレス要素をレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
         theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
         line_close=True,
-        title="ストレスレベル",
+        title="ストレス要素",
     )
     st.plotly_chart(fig)
-    st.write("レーダーチャートのへこんでいる項目がストレスの要因である可能性が考えられます。")
+    st.write("レーダーチャートの凹んでいる項目がストレスの要因である可能性が考えられます。")
 
 if __name__ == "__main__":
     main()
