@@ -6,7 +6,7 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=2))
+        user_input.append(st.radio(f"{feature}を選択してください", options=[1, 2, 3, 4, 5], index=2))
     return user_input
 
 # 逆スコアリングを適用する
@@ -34,11 +34,11 @@ def calculate_stress_level(scaled_values, feature_importances):
     st.write(f"stress_level: {stress_level}")  # デバッグ出力
     return stress_level
 
-# 最もへこんでいる項目を特定する
-def find_top_lowest_features(scaled_values, features, top_n=3):
-    sorted_indices = np.argsort(scaled_values)[:top_n]
-    lowest_features = [(features[i], scaled_values[i]) for i in sorted_indices]
-    return lowest_features
+# 最も高い項目を特定する
+def find_top_highest_features(scaled_values, features, top_n=3):
+    sorted_indices = np.argsort(scaled_values)[-top_n:][::-1]
+    highest_features = [(features[i], scaled_values[i]) for i in sorted_indices]
+    return highest_features
 
 # Streamlitアプリの実行
 def main():
@@ -100,9 +100,9 @@ def main():
 
     st.write("ストレスレベル:", stress_level)
 
-    lowest_features = find_top_lowest_features(scaled_values, features, top_n=3)
+    highest_features = find_top_highest_features(scaled_values, features, top_n=3)
     st.write("最もストレスが高い要素:")
-    for feature, value in lowest_features:
+    for feature, value in highest_features:
         st.write(f"{feature}: {value}")
 
     st.write("以下は、ストレス要素をレーダーチャートで視覚化したものです。")
