@@ -102,7 +102,6 @@ def main():
         title="ストレス要素",
     )
     st.plotly_chart(fig)
-    st.write("あなたのストレスレベルは"+stress_level+"です")
     
 
 if __name__ == "__main__":
