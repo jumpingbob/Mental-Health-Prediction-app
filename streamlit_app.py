@@ -35,10 +35,10 @@ def calculate_stress_level(scaled_values, feature_importances):
     return stress_level
 
 # 最もへこんでいる項目を特定する
-def find_lowest_feature(scaled_values, features):
-    min_value = min(scaled_values)
-    min_index = scaled_values.index(min_value)
-    return features[min_index], min_value
+def find_top_lowest_features(scaled_values, features, top_n=3):
+    sorted_indices = np.argsort(scaled_values)[:top_n]
+    lowest_features = [(features[i], scaled_values[i]) for i in sorted_indices]
+    return lowest_features
 
 # Streamlitアプリの実行
 def main():
@@ -100,8 +100,10 @@ def main():
 
     st.write("ストレスレベル:", stress_level)
 
-    lowest_feature, lowest_value = find_lowest_feature(scaled_values, features)
-    st.write(f"最もストレスが高い要素: {lowest_feature} (スコア: {lowest_value})")
+    lowest_features = find_top_lowest_features(scaled_values, features, top_n=3)
+    st.write("最もストレスが高い要素:")
+    for feature, value in lowest_features:
+        st.write(f"{feature}: {value}")
 
     st.write("以下は、ストレス要素をレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
