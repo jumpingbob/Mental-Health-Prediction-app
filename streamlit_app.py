@@ -92,7 +92,7 @@ def main():
 
     stress_level = calculate_stress_level(scaled_values, feature_importances)
 
-    st.write("ストレス要素:", stress_level)
+    st.write("ストレスレベル:", stress_level)
 
     st.write("以下は、ストレス要素をレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
