@@ -34,6 +34,12 @@ def calculate_stress_level(scaled_values, feature_importances):
     st.write(f"stress_level: {stress_level}")  # デバッグ出力
     return stress_level
 
+# 最もへこんでいる項目を特定する
+def find_lowest_feature(scaled_values, features):
+    min_value = min(scaled_values)
+    min_index = scaled_values.index(min_value)
+    return features[min_index], min_value
+
 # Streamlitアプリの実行
 def main():
     st.title("メンタルヘルス推定アプリ")
@@ -94,6 +100,9 @@ def main():
 
     st.write("ストレスレベル:", stress_level)
 
+    lowest_feature, lowest_value = find_lowest_feature(scaled_values, features)
+    st.write(f"最もストレスが高い要素: {lowest_feature} (スコア: {lowest_value})")
+
     st.write("以下は、ストレス要素をレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
@@ -102,7 +111,6 @@ def main():
         title="ストレス要素",
     )
     st.plotly_chart(fig)
-    
 
 if __name__ == "__main__":
     main()
