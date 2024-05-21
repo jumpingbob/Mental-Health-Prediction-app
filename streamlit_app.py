@@ -36,7 +36,7 @@ def calculate_stress_level(scaled_values, feature_importances):
 
 # Streamlitアプリの実行
 def main():
-    st.title("ストレスレベル計測アプリ")
+    st.title("メンタルヘルス推定アプリ")
 
     # データを収集した際の質問項目
     features = [
@@ -102,7 +102,8 @@ def main():
         title="ストレス要素",
     )
     st.plotly_chart(fig)
-    st.write("レーダーチャートの凹んでいる項目がストレスの要因である可能性が考えられます。")
+    st.write("あなたのストレスレベルは"+stress_level+"です")
+    
 
 if __name__ == "__main__":
     main()
