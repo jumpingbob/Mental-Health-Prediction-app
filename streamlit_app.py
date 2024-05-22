@@ -6,7 +6,7 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        user_input.append(st.radio(f"Select your {feature}", options=[1, 2, 3, 4, 5], index=2))
+        user_input.append(st.radio(f"{feature}を選択してください", options=[1, 2, 3, 4, 5], index=2))
     return user_input
 
 # 逆スコアリングを適用する
@@ -42,7 +42,7 @@ def find_top_highest_features(scaled_values, features, top_n=3):
 
 # Streamlitアプリの実行
 def main():
-    st.title("Mental Health Estimation App")
+    st.title("メンタルヘルスセルフチェックアプリ")
 
     # データを収集した際の質問項目
     features = [
@@ -88,11 +88,12 @@ def main():
         0.074321   # bullying
     ])
 
-    st.write("Please evaluate each item using the radio buttons below to calculate your stress level.")
+    st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
+    st.write("直感的にあてはまるものを選択してください。")
 
     user_input = get_user_input(features)
 
-    st.write("Entered values:", user_input)
+    st.write("入力された値:", user_input)
 
     # 逆スコアリングを適用するインデックス
     reverse_indices = [1, 5, 8, 9, 10, 11, 13]  # 1: self-esteem, 5: sleep quality, 8: living conditions, 9: safety, 10: basic needs, 11: academic performance, 13: teacher-student relationship
@@ -106,14 +107,14 @@ def main():
 
     stress_level = calculate_stress_level(scaled_values, feature_importances)
 
-    st.write("Stress level:", stress_level)
+    st.write("ストレスレベル:", stress_level)
 
     highest_features = find_top_highest_features(scaled_values, features, top_n=3)
-    st.write("Top stress factors:")
+    st.write("ストレス要素上位三項目:")
     for feature, value in highest_features:
         st.write(f"{feature}: {value}")
 
-    st.write("Below is a radar chart visualizing the stress factors.")
+    st.write("以下は、ストレス要素をレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
         theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
