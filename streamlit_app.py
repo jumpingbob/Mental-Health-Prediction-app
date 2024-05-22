@@ -101,7 +101,8 @@ def main():
     st.write("ストレスレベル:", stress_level)
 
     highest_features = find_top_highest_features(scaled_values, features, top_n=3)
-    st.write("最もストレスが高い要素(上位三項目):")
+    st.write("最もストレスが高い要素:")
+    st.write("上位三項目を表示しています。")
     for feature, value in highest_features:
         st.write(f"{feature}: {value}")
 
