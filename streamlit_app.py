@@ -69,7 +69,7 @@ def find_top_highest_features(scaled_values, features, top_n=3):
 # Streamlitアプリの実行
 def main():
     # 使用言語を選択する
-    lang = st.selectbox("使用言語を選択してください", ["日本語", "English"])
+    lang = st.selectbox("language setting", ["日本語", "English"])
 
     # 言語に応じた翻訳を取得
     t = translations[lang]
