@@ -42,7 +42,7 @@ def find_top_highest_features(scaled_values, features, top_n=3):
 
 # Streamlitアプリの実行
 def main():
-    st.title("メンタルヘルス推定アプリ")
+    st.title("メンタルヘルスセルフチェックアプリ")
 
     # データを収集した際の質問項目
     features = [
@@ -101,7 +101,7 @@ def main():
     st.write("ストレスレベル:", stress_level)
 
     highest_features = find_top_highest_features(scaled_values, features, top_n=3)
-    st.write("最もストレスが高い要素:")
+    st.write("最もストレスが高い要素(上位三項目):")
     for feature, value in highest_features:
         st.write(f"{feature}: {value}")
 
