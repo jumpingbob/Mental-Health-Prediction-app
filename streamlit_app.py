@@ -6,7 +6,7 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=2, key=feature))
+        user_input.append(st.radio(f"{feature}を選択してください", options=["5 とても高い", 4, 3, 2, 1], index=2, key=feature))
     return user_input
 
 # 逆スコアリングを適用する
@@ -119,11 +119,11 @@ def main():
     st.write("ストレスレベル:", stress_level_rounded)
 
     highest_features = find_top_highest_features(scaled_values, features, top_n=3)
-    st.write("ストレス要因上位三項目:")
+    st.write("ストレス要因上位3項目:")
     for feature, value in highest_features:
         st.write(f"{feature}: {value}")
 
-    st.write("以下は、ストレス要因をレーダーチャートで視覚化したものです。")
+    st.write("以下は、ユーザーのストレス要因をレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
         theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
