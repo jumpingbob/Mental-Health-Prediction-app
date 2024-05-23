@@ -114,7 +114,9 @@ def main():
 
     stress_level = calculate_stress_level(scaled_values, feature_importances)
 
-    st.write("ストレスレベル:", stress_level)
+    stress_level_rounded = round(stress_level, 2)  # 少数第二位まで四捨五入
+
+    st.write("ストレスレベル:", stress_level_rounded)
 
     highest_features = find_top_highest_features(scaled_values, features, top_n=3)
     st.write("ストレス要因上位三項目:")
