@@ -51,7 +51,7 @@ def main():
     # 精神疾患の有無に関する質問
     mental_health_history = st.radio("精神疾患が以前あったことがありますか？", options=["はい", "いいえ"], index=1, key='mental_health_history')
 
-    st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
+    st.write("以下のラジオボタンで各項目を評価し、ストレスレベルおよびストレス要因を推定します。")
     st.write("直感的にあてはまるものを選択してください。")
 
     # データを収集した際の質問項目
@@ -117,16 +117,16 @@ def main():
     st.write("ストレスレベル:", stress_level)
 
     highest_features = find_top_highest_features(scaled_values, features, top_n=3)
-    st.write("ストレス要素上位三項目:")
+    st.write("ストレス要因上位三項目:")
     for feature, value in highest_features:
         st.write(f"{feature}: {value}")
 
-    st.write("以下は、ストレス要素をレーダーチャートで視覚化したものです。")
+    st.write("以下は、ストレス要因をレーダーチャートで視覚化したものです。")
     fig = px.line_polar(
         r=scaled_values + scaled_values[:1],  # 周期的に閉じるために、最初の値を最後に追加
         theta=features + features[:1],  # 周期的に閉じるために、最初の項目を最後に追加
         line_close=True,
-        title="Stress Factors",
+        title="ストレス要因",
     )
     st.plotly_chart(fig)
 
