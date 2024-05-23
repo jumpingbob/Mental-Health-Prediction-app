@@ -6,7 +6,7 @@ import plotly.express as px
 def get_user_input(features):
     user_input = []
     for feature in features:
-        user_input.append(st.radio(f"{feature}を選択してください", options=[1, 2, 3, 4, 5], index=2))
+        user_input.append(st.radio(f"{feature}を選択してください", options=[1, 2, 3, 4, 5], index=2, key=feature))
     return user_input
 
 # 逆スコアリングを適用する
@@ -44,8 +44,12 @@ def find_top_highest_features(scaled_values, features, top_n=3):
 def main():
     st.title("メンタルヘルスセルフチェックアプリ")
 
+    # セッション状態を初期化
+    if 'user_inputs' not in st.session_state:
+        st.session_state.user_inputs = []
+
     # 精神疾患の有無に関する質問
-    mental_health_history = st.radio("精神疾患が以前あったことがありますか？", options=["はい", "いいえ"], index=1)
+    mental_health_history = st.radio("精神疾患が以前あったことがありますか？", options=["はい", "いいえ"], index=1, key='mental_health_history')
 
     st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
     st.write("直感的にあてはまるものを選択してください。")
@@ -94,11 +98,13 @@ def main():
 
     user_input = get_user_input(features)
 
-    st.write("入力された値:", user_input)
+    st.session_state.user_inputs = user_input  # 入力データをセッション状態に保存
+
+    st.write("入力された値:", st.session_state.user_inputs)
 
     # 逆スコアリングを適用するインデックス
     reverse_indices = [1, 4, 7, 8, 9, 10, 12]  # 1: self-esteem, 4: sleep quality, 7: living conditions, 8: safety, 9: basic needs, 10: academic performance, 12: teacher-student relationship
-    user_input = reverse_scoring(user_input, reverse_indices)
+    user_input = reverse_scoring(st.session_state.user_inputs, reverse_indices)
 
     st.write("Values after applying reverse scoring:", user_input)
 
@@ -126,3 +132,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
