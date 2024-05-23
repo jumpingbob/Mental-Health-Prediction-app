@@ -44,11 +44,16 @@ def find_top_highest_features(scaled_values, features, top_n=3):
 def main():
     st.title("メンタルヘルスセルフチェックアプリ")
 
+    # 精神疾患の有無に関する質問
+    mental_health_history = st.radio("精神疾患が以前あったことがありますか？", options=["はい", "いいえ"], index=1)
+
+    st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
+    st.write("直感的にあてはまるものを選択してください。")
+
     # データを収集した際の質問項目
     features = [
         "anxiety level (不安レベル)",
         "self-esteem (自尊心)",
-        "mental health history (精神保健の歴史)",
         "depression (うつ病)",
         "headache (頭痛)",
         "sleep quality (睡眠の質)",
@@ -70,7 +75,6 @@ def main():
     feature_importances = np.array([
         0.063881,  # anxiety level
         0.074731,  # self-esteem
-        0.084334,  # mental health history
         0.043206,  # depression
         0.066067,  # headache
         0.083017,  # sleep quality
@@ -88,15 +92,12 @@ def main():
         0.074321   # bullying
     ])
 
-    st.write("以下のラジオボタンで各項目を評価し、ストレスレベルを計算します。")
-    st.write("直感的にあてはまるものを選択してください。")
-
     user_input = get_user_input(features)
 
     st.write("入力された値:", user_input)
 
     # 逆スコアリングを適用するインデックス
-    reverse_indices = [1, 5, 8, 9, 10, 11, 13]  # 1: self-esteem, 5: sleep quality, 8: living conditions, 9: safety, 10: basic needs, 11: academic performance, 13: teacher-student relationship
+    reverse_indices = [1, 4, 7, 8, 9, 10, 12]  # 1: self-esteem, 4: sleep quality, 7: living conditions, 8: safety, 9: basic needs, 10: academic performance, 12: teacher-student relationship
     user_input = reverse_scoring(user_input, reverse_indices)
 
     st.write("Values after applying reverse scoring:", user_input)
@@ -125,4 +126,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
