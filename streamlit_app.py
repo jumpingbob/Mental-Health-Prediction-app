@@ -43,7 +43,7 @@ def find_top_highest_features(scaled_values, features, top_n=3):
 
 # Streamlitアプリの実行
 def main():
-    st.title("メンタルヘルスセルフチェックアプリ")
+    st.title("メンタルヘルスセルフチェッカー")
 
     # セッション状態を初期化
     if 'user_inputs' not in st.session_state:
