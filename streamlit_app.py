@@ -49,7 +49,7 @@ def main():
         st.session_state.user_inputs = []
 
     # 精神疾患の有無に関する質問
-    mental_health_history = st.radio("精神疾患が以前あったことがありますか？", options=["はい", "いいえ"], index=1, key='mental_health_history')
+    #mental_health_history = st.radio("精神疾患が以前あったことがありますか？", options=["はい", "いいえ"], index=1, key='mental_health_history')
 
     st.write("以下のラジオボタンで各項目を評価し、ストレスレベルおよびストレス要因を推定します。")
     st.write("直感的にあてはまるものを選択してください。")
