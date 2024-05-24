@@ -114,7 +114,7 @@ def main():
 
     stress_level = calculate_stress_level(scaled_values, feature_importances)
 
-    stress_level_rounded = round(stress_level, 2)  # 少数第二位まで四捨五入
+    stress_level_rounded = round(stress_level, 2)  # 小数第二位まで四捨五入
 
     st.write("ストレスレベル:", stress_level_rounded)
 
