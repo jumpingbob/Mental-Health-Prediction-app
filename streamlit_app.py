@@ -5,8 +5,9 @@ import plotly.express as px
 # ユーザーからの入力を受け取り、それぞれの項目の値をリストに格納する
 def get_user_input(features):
     user_input = []
+    options = ["5.とても高い", "4.やや高い", "3.ふつう", "2.やや低い", "1.とても低い"]
     for feature in features:
-        user_input.append(st.radio(f"{feature}を選択してください", options=[5, 4, 3, 2, 1], index=2, key=feature))
+        user_input.append(int(st.radio(f"{feature}を選択してください", options=options, index=2, key=feature)[0]))  # 文字列の最初の文字を数値に変換
     return user_input
 
 # 逆スコアリングを適用する
@@ -47,9 +48,6 @@ def main():
     # セッション状態を初期化
     if 'user_inputs' not in st.session_state:
         st.session_state.user_inputs = []
-
-    # 精神疾患の有無に関する質問
-    #mental_health_history = st.radio("精神疾患が以前あったことがありますか？", options=["はい", "いいえ"], index=1, key='mental_health_history')
 
     st.write("以下のラジオボタンで各項目を評価し、ストレスレベルおよびストレス要因を推定します。")
     st.write("直感的にあてはまるものを選択してください。")
@@ -114,7 +112,7 @@ def main():
 
     stress_level = calculate_stress_level(scaled_values, feature_importances)
 
-    stress_level_rounded = round(stress_level, 2)  # 小数第二位まで四捨五入
+    stress_level_rounded = round(stress_level, 2)  # 数第二位まで四捨五入
 
     st.write("ストレスレベル:", stress_level_rounded)
 
