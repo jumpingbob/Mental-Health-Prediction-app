@@ -7,7 +7,7 @@ def get_user_input(features):
     user_input = []
     options = ["5.とても高い", "4.やや高い", "3.ふつう", "2.やや低い", "1.とても低い"]
     for feature in features:
-        user_input.append(int(st.radio(f"{feature}を選択してください", options=options, index=2, key=feature)[0]))  # 文字列の最初の文字を数値に変換
+        user_input.append(int(st.radio(f"**{feature}**を選択してください", options=options, index=2, key=feature)[0]))  # 文字列の最初の文字を数値に変換
     return user_input
 
 # 逆スコアリングを適用する
