@@ -50,12 +50,12 @@ def main():
         st.session_state.user_inputs = []
 
     st.write("以下のラジオボタンで各項目を評価し、ストレスレベルおよびストレス要因を推定します。")
-    st.write("直感的にあてはまるものを選択してください。")
+    st.markdown("直感的にあてはまる各項目の強さを選択してください。")
 
     # データを収集した際の質問項目
     features = [
         "anxiety level (不安レベル)",
-        "self-esteem (自尊心)",
+        "self-esteem (自尊心の高さ)",
         "depression (うつ病)",
         "headache (頭痛)",
         "sleep quality (睡眠の質)",
@@ -63,13 +63,13 @@ def main():
         "noise level (騒音レベル)",
         "living conditions (生活環境)",
         "safety (安全)",
-        "basic needs (基本的ニーズ)",
+        "basic needs (基本的欲求)",
         "academic performance (学業成績)",
         "study load (学業負担)",
         "teacher-student relationship (教師と生徒の関係)",
         "future career concerns (将来のキャリアに関する懸念)",
         "peer pressure (仲間からのプレッシャー)",
-        "extracurricular activities (課外活動)",
+        "extracurricular activities (課外活動による負担)",
         "bullying (いじめ)"
     ]
 
