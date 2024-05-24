@@ -5,15 +5,10 @@ import plotly.express as px
 # ユーザーからの入力を受け取り、それぞれの項目の値をリストに格納する
 def get_user_input(features):
     user_input = []
-    options = ["**5.**<span style='font-size: larger; color: blue;'>とても高い</span>",
-               "**4.**<span style='font-size: larger; color: green;'>やや高い</span>",
-               "**3.**<span style='font-size: larger; color: orange;'>ふつう</span>",
-               "**2.**<span style='font-size: larger; color: red;'>やや低い</span>",
-               "**1.**<span style='font-size: larger; color: purple;'>とても低い</span>"]
+    options = ["5.とても高い", "4.やや高い", "3.ふつう", "2.やや低い", "1.とても低い"]
     for feature in features:
         user_input.append(int(st.radio(f"**{feature}**を選択してください", options=options, index=2, key=feature)[0]))  # 文字列の最初の文字を数値に変換
     return user_input
-
 
 # 逆スコアリングを適用する
 def reverse_scoring(user_input, reverse_indices):
