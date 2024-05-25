@@ -56,21 +56,21 @@ def main():
     features = [
         "anxiety level (不安レベル)",
         "self-esteem (自尊心の高さ)",
-        "depression (うつ病)",
-        "headache (頭痛)",
+        "depression (うつ傾向)",
+        "headache (頭痛の強度)",
         "sleep quality (睡眠の質)",
-        "breathing problem (呼吸問題)",
+        "breathing problem (呼吸の苦しさ・息苦しさ)",
         "noise level (騒音レベル)",
-        "living conditions (生活環境)",
-        "safety (安全)",
+        "living conditions (生活環境・状態)",
+        "safety (安全性)",
         "basic needs (基本的欲求)",
         "academic performance (学業成績)",
         "study load (学業負担)",
         "teacher-student relationship (教師と生徒の関係)",
-        "future career concerns (将来のキャリアに関する懸念)",
+        "future career concerns (将来のキャリア・進路に関する懸念)",
         "peer pressure (仲間からのプレッシャー)",
-        "extracurricular activities (課外活動による負担)",
-        "bullying (いじめ)"
+        "extracurricular activities (課外活動における負担)",
+        "bullying (外部からの圧力的な被害)"
     ]
 
     # 各質問項目の特徴量重要度
