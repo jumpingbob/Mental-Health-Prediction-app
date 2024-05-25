@@ -75,23 +75,23 @@ def main():
 
     # 各質問項目の特徴量重要度
     feature_importances = np.array([
-        0.063881,  # anxiety level
-        0.074731,  # self-esteem
-        0.043206,  # depression
-        0.066067,  # headache
-        0.083017,  # sleep quality
-        0.015290,  # breathing problem
-        0.038964,  # noise level
-        0.020777,  # living conditions
-        0.061408,  # safety
-        0.047875,  # basic needs
-        0.068805,  # academic performance
-        0.025424,  # study load
-        0.057318,  # teacher-student relationship
-        0.065572,  # future career concerns
-        0.050163,  # peer pressure
-        0.058846,  # extracurricular activities
-        0.074321   # bullying
+        0.057802,  # anxiety level
+        0.057088,  # self-esteem
+        0.039464,  # depression
+        0.081881,  # headache
+        0.088141,  # sleep quality
+        0.023011,  # breathing problem
+        0.042920,  # noise level
+        0.026199,  # living conditions
+        0.056138,  # safety
+        0.072368,  # basic needs
+        0.075147,  # academic performance
+        0.035174,  # study load
+        0.051709,  # teacher-student relationship
+        0.067962,  # future career concerns
+        0.048509,  # peer pressure
+        0.074542,  # extracurricular activities
+        0.101947   # bullying
     ])
 
     user_input = get_user_input(features)
