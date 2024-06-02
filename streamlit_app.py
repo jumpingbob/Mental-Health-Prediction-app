@@ -45,10 +45,6 @@ def find_top_highest_features(scaled_values, features, top_n=3):
 def main():
     st.title("メンタルヘルスセルフチェッカー")
 
-    # セッション状態を初期化
-    if 'user_inputs' not in st.session_state:
-        st.session_state.user_inputs = []
-
     st.write("以下のラジオボタンで各項目を評価し、ストレスレベルおよびストレス要因を推定します。")
     st.markdown("直感的にあてはまる各項目の強さ(大きさ）を選択してください。")
 
@@ -96,22 +92,13 @@ def main():
 
     user_input = get_user_input(features)
 
-    st.session_state.user_inputs = user_input  # 入力データをセッション状態に保存
-
-    st.write("入力された値:", st.session_state.user_inputs)
-
     # 逆スコアリングを適用するインデックス
     reverse_indices = [1, 4, 7, 8, 9, 10, 12]  # 1: self-esteem, 4: sleep quality, 7: living conditions, 8: safety, 9: basic needs, 10: academic performance, 12: teacher-student relationship
-    user_input = reverse_scoring(st.session_state.user_inputs, reverse_indices)
-
-    st.write("Values after applying reverse scoring:", user_input)
+    user_input = reverse_scoring(user_input, reverse_indices)
 
     scaled_values = min_max_scaling(user_input)
 
-    st.write("Min-Max normalized values:", scaled_values)
-
     stress_level = calculate_stress_level(scaled_values, feature_importances)
-
     stress_level_rounded = round(stress_level, 2)  # 小数第二位まで四捨五入
 
     st.write("ストレスレベル:", stress_level_rounded)
